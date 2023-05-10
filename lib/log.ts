@@ -33,16 +33,15 @@ const console = new Console({
 });
 
 interface Options {
-  debug?: boolean,
-  silent?: boolean
+  debug?: boolean;
+  silent?: boolean;
 }
 
-type ConsoleArgs = [object | string, ...any[]];
+type ConsoleArgs = any[];
 
 type writeLogF = (...args: ConsoleArgs) => void;
 
 class Logger {
-
   _silent: boolean;
   _debug: boolean;
   level: number;
@@ -52,10 +51,7 @@ class Logger {
   e: writeLogF;
   log: writeLogF;
 
-  constructor({
-    debug = false,
-    silent = false
-  }: Options = {}) {
+  constructor({ debug = false, silent = false }: Options = {}) {
     this._silent = silent || false;
     this._debug = debug || false;
 
