@@ -26,6 +26,23 @@ const LEVEL_COLORS = {
   60: 'bgRed'
 };
 
+function applyColor(str: string, color: string) {
+  switch (color) {
+    case 'gray':
+      return picocolors.gray(str);
+    case 'green':
+      return picocolors.green(str);
+    case 'bgYellow':
+      return picocolors.bgYellow(str);
+    case 'bgRed':
+      return picocolors.bgRed(str);
+    case 'yellow':
+      return picocolors.yellow(str);
+    default:
+      return str;
+  }
+}
+
 const console = new Console({
   stdout: process.stdout,
   stderr: process.stderr,
@@ -77,20 +94,20 @@ class Logger {
 
     if (this._debug) {
       const str = new Date().toISOString().substring(11, 23) + ' ';
-
+      const coloredStr = applyColor(str, LEVEL_COLORS[DEBUG]);
       if (level === TRACE || level >= WARN) {
-        process.stderr.write(picocolors[LEVEL_COLORS[DEBUG]](str));
+        process.stderr.write(coloredStr);
       } else {
-        process.stdout.write(picocolors[LEVEL_COLORS[DEBUG]](str));
+        process.stdout.write(coloredStr);
       }
     }
 
     if (level >= this.level) {
-      const str = picocolors[LEVEL_COLORS[level]](LEVEL_NAMES[level]) + ' ';
+      const levelStr = applyColor(LEVEL_NAMES[level], LEVEL_COLORS[level]) + ' ';
       if (level === TRACE || level >= WARN) {
-        process.stderr.write(str);
+        process.stderr.write(levelStr);
       } else {
-        process.stdout.write(str);
+        process.stdout.write(levelStr);
       }
 
       if (level === TRACE) {
@@ -108,12 +125,11 @@ class Logger {
       if (errArg) {
         const err = errArg.stack || errArg.message;
         if (err) {
-          const str = picocolors.yellow(err) + '\n';
-
+          const errStr = applyColor(err, 'yellow') + '\n';
           if (level === TRACE || level >= WARN) {
-            process.stderr.write(str);
+            process.stderr.write(errStr);
           } else {
-            process.stdout.write(str);
+            process.stdout.write(errStr);
           }
         }
       }

@@ -6,3 +6,5 @@ tmp/
 .nyc_output/
 dist
 package-lock.json
+yarn.lock
+*.ignore

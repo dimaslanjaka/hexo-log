@@ -1,7 +1,11 @@
-
+import { fileURLToPath } from 'url';
+import path from 'path';
 import rewire from 'rewire';
 import sinon from 'sinon';
-import { logger } from '../lib/log';
+import { logger } from '../lib/log.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const noop = () => {};
 const fakeConsole = {
@@ -28,7 +32,8 @@ describe('hexo-log', () => {
 
   beforeEach(() => {
     sinon.restore();
-    loggerModule = rewire('../lib/log');
+    const cjsModule = path.join(__dirname, '../dist/cjs/log.js');
+    loggerModule = rewire(cjsModule);
   });
 
   it('add alias for levels', () => {
