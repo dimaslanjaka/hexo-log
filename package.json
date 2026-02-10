@@ -8,17 +8,20 @@
   "types": "dist/esm/log.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/log.js",
-      "require": "./dist/cjs/log.js",
-      "types": "./dist/esm/log.d.ts"
+      "import": "./dist/log.js",
+      "require": "./dist/log.cjs",
+      "types": "./dist/log.d.ts"
+    },
+    "./dist/log": {
+      "import": "./dist/log.js",
+      "require": "./dist/log.cjs",
+      "types": "./dist/log.d.ts"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
     "prepublish": "npm run clean && npm run build",
-    "build-cjs": "tsc -p tsconfig.cjs.json",
-    "build-esm": "tsc -p tsconfig.esm.json",
-    "build": "npm run build-cjs && npm run build-esm",
+    "build": "node build.js && node scripts/build_exports.mjs",
     "clean": "npx -y rimraf dist tmp",
     "eslint": "eslint .",
     "test": "mocha --loader=ts-node/esm test/*.spec.ts",
@@ -48,6 +51,7 @@
     "@types/mocha": "^10.0.6",
     "@types/node": "^22.7.4",
     "@types/rewire": "^2.5.30",
+    "binary-collections": "^2.0.10",
     "chai": "^5.0.3",
     "eslint": "^8.56.0",
     "eslint-config-hexo": "^5.0.0",
@@ -56,6 +60,7 @@
     "rewire": "^6.0.0",
     "sinon": "^15.0.2",
     "ts-node": "^10.9.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.2.2"
   },
   "engines": {
