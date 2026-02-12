@@ -53,6 +53,7 @@
     "@types/rewire": "^2.5.30",
     "binary-collections": "^2.0.10",
     "chai": "^5.0.3",
+    "esbuild-fix-imports-plugin": "^1.0.23",
     "eslint": "^8.56.0",
     "eslint-config-hexo": "^5.0.0",
     "mocha": "^10.0.0",
